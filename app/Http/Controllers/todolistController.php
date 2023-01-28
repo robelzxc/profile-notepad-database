@@ -8,6 +8,9 @@ use Validator;
 
 class todolistController extends Controller
 {
+    function searchID($id){
+        return Todo::where('userID',$id)->get();
+    }
     function list(){
         return Todo::all();
     }
@@ -17,6 +20,7 @@ class todolistController extends Controller
     function add(Request $req)
     {
         $todo = new Todo;
+        $todo->userID=$req->userID;
         $todo->title=$req->title;
         $todo->description=$req->description;
         $result=$todo->save();
@@ -40,6 +44,7 @@ class todolistController extends Controller
             return ['Operation' => 'Failed'];
         }
     }
+    
     function delete($id){
         $todo= Todo::find($id);
         $result=$todo->delete();
@@ -69,6 +74,7 @@ class todolistController extends Controller
         }
         else{
             $todo= new Todo;
+            $todo->userID=$req->userID;
             $todo->title=$req->title;
             $todo->description=$req->description;
             $result=$todo->save();

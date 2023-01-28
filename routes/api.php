@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::apiResource('member',MemberController::class);
+    Route::get('user/todos/{id}',[todolistController::class, 'searchID']);
     Route::get('todo', [todolistController::class,'list']);
     Route::get('todo/{id}', [todolistController::class,'index']);
     Route::post('add',[todolistController::class,'add']);
